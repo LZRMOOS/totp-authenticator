@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>AppFolio TOTP Authenticator App</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://unpkg.com/buefy/dist/buefy.min.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div id="app">
+  <div class="content">
+    <progress v-bind:value="30 - updatingIn" max="30"></progress>
+  </div>
+  <div class="columns is-mobile">
+  <div class="column is-one-third is-offset-one-third">
+
+    <section class="section">
+      <h1 class="title">AppFolio Authenticator App</h1>
+
+<!--      <div class="field">-->
+<!--        <label class="label is-uppercase">Enter your secret key:</label>-->
+<!--        <div class="control">-->
+<!--          <input class="input" type="text" v-model="secret_key" placeholder="Enter a secret key">-->
+<!--        </div>-->
+<!--      </div>-->
+
+      <section class="form">
+        <div class="field">
+          <div class="control">
+            <label class="label">Secret Key Goes Here:</label>
+            <input v-model="secret_pair.secret_key" class="input" type="text" placeholder="Secretsss">
+            <label class="label">Issuer:</label>
+            <input v-model="secret_pair.issuer" class="input" type="text" placeholder="Issuer">
+            <button @click="addSecretPair">Save</button>
+          </div>
+        </div>
+      </section>
+
+<!--      show box link -->
+      <div class="columns" id="app">
+        <div class="column">
+            <div class="box">
+              <ul>
+                <div v-for="(secret_pair, key) in secret_pairs">
+                  <div class="card"><li>
+                    <span class="secret_pair">{{ secret_pair }}</span>
+                    <span class="secret_pair">{{ secret_pair.secret_key }}</span>
+                    <button @click="removeSecretPair(key)">Remove</button>
+                    <button @click="selectSecretPair(key)">Select</button>
+                  </li></div>
+                </div>
+              </ul>
+            </div>
+        </div>
+      </div>
+
+      <div class="tile is-ancestor">
+        <div class="tile box">
+          <p class="title is-size-1" style="margin:auto">{{ token }}</p>
+<!--          <p class="title is-size-1" style="margin:auto">{{ current_token }}</p>-->
+        </div>
+      </div>
+
+    </section>
+  </div>
+</div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/otpauth@6.0.5/dist/otpauth.umd.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
+
+

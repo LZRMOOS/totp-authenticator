@@ -1,0 +1,100 @@
+<div>
+  <div class="content" style="margin-bottom: 0;">
+    <b-progress v-bind:value="30 - updatingIn" :max=30></b-progress>
+  </div>
+    <div class="column is-one-third is-offset-one-third">
+      <div class="column is-one-third is-offset-one-third" style="padding-bottom: 0;">
+        <img src="../../assets/appf-logo-big.png">
+      </div>
+      <h2 class="subtitle" style="margin: 0; font-size: 19px;">Authenticator</h2>
+      <section>
+        <b-field style="text-align: left; margin-bottom: 0;">
+          <template slot="label">Secret Key
+            <b-tooltip type="is-dark"
+                       size="is-large"
+                       :delay="150"
+                       label='Enter the secret key issued by the application you are setting up 2FA for. It will be used to generate time-based one-time passwords.'
+                       multilined>
+              <b-icon size="is-small" icon="help-circle-outline"></b-icon>
+            </b-tooltip>
+          </template>
+          <b-input placeholder='Enter Your Secret Key Here'
+                   v-model='newSecretPair.secretKey'
+                   type='text'
+                   required
+                   validation-message="Should be a 16 character alphanumeric sequence"
+                   maxlength="16"
+                   pattern="^[a-zA-Z0-9]{16}$">
+          </b-input>
+        </b-field>
+        <b-field style="text-align: left;">
+          <template slot="label">Issuer
+            <b-tooltip type="is-dark"
+                       size="is-large"
+                       :delay="150"
+                       label="Enter the name of the application or account name you are setting up 2FA for."
+                       multilined>
+              <b-icon size="is-small" icon="help-circle-outline"></b-icon>
+            </b-tooltip>
+          </template>
+          <b-input placeholder='E.g. AppFolio Online Portal'
+                   v-model='newSecretPair.secretIssuer'
+                   type='text'
+                   required
+                   validation-message='Please enter the issuer of the secret key'>
+          </b-input>
+        </b-field>
+        <div class="level is-mobile">
+          <div class="level-right">
+            <div class="level-item">
+              <b-button @click="downloadBackup">Backup</b-button>
+            </div>
+            <div class="level-item">
+              <b-field class="file">
+                <b-upload v-model="file">
+                  <a class="button">
+                    <span>Select Backup</span>
+                  </a>
+                </b-upload>
+              </b-field>
+            </div>
+          </div>
+          <div class="level-left">
+            <div class="level-item">
+              <b-button class="is-primary"
+                        @click='addSecretPair'
+                        :disabled='!this.isComplete'>
+                Save
+              </b-button>
+            </div>
+          </div>
+        </div>
+        <div v-if="file" class="level">
+          <div class="card box is-small" style="width: 100%; padding: 12px;">
+          <div class="level-item">
+            <span>"{{ file.name }}" ({{ file.size }} bytes)</span>
+          </div>
+          <div class="level-item" style="margin-top: 3px;">
+            <b-button
+              @click="restoreBackup">
+              <b-icon icon="upload" class="is-small"></b-icon>
+              <span>Upload</span>
+            </b-button>
+          </div>
+        </div>
+        </div>
+      </section>
+
+      <hr v-show='secretPairs.length > 0'/>
+      <br/>
+      <div class="columns is-mobile">
+        <div class="row" style="width:100%;">
+          <SecretPair v-bind:key="item.id" v-for="(item, key) in secretPairs"
+                      :indexKey='key'
+                      :secretPairKey='item.secretKey'
+                      :secretPairIssuer='item.secretIssuer'>
+          </SecretPair>
+        </div>
+      </div>
+    </div>
+</div>
