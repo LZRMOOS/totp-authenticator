@@ -20,6 +20,7 @@
           </template>
           <b-input id="secret"
                    placeholder='Enter Your Secret Key Here'
+                   autocomplete="off"
                    v-model='newSecretPair.secretKey'
                    type='text'
                    required
@@ -53,16 +54,15 @@
             <div class="level-item">
               <b-field class="file">
                 <b-upload v-model="file">
-                  <a class="button">
-                    <span>Select Backup</span>
-                  </a>
+                  <a class="button"><span>Select Backup</span></a>
                 </b-upload>
               </b-field>
             </div>
           </div>
           <div class="level-left">
             <div class="level-item">
-              <b-button class="is-primary"
+              <b-button type="submit"
+                        class="is-primary"
                         @click='addSecretPair'
                         :disabled='!this.isComplete'>
                 Save
