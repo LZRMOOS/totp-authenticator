@@ -6,35 +6,21 @@
   </div>
   <div class="card-content">
     <div class="level is-mobile">
-      <div class="level-left">
-        <div class="level-item">
-          <div>
-
-          </div>
+      <div class="level-item">
+        <div class="container">
+          <p class="heading">2FA Password</p>
+          <p class="subtitle is-size-1"><strong>{{ this.token }}</strong></p>
         </div>
       </div>
-      <div class="level-right">
-        <div class="level-item">
-          <div>
-            <p class="heading">2FA Password</p>
-            <p class="subtitle is-size-1"><strong>{{ this.token }}</strong></p>
-          </div>
-        </div>
-      </div>
-      <div class="level is-mobile">
-        <div class="level-item">
+      <div class="level-item">
+        <div class="container">
           <b-button type="button"
-                v-clipboard:copy="this.token"
-                v-clipboard:success="onCopy"
-                v-clipboard:error="onError">
-            <b-icon
-             icon="content-copy"
-              size="is-small">
-            </b-icon>
+                    v-clipboard:copy="this.token"
+                    v-clipboard:success="onCopy"
+                    v-clipboard:error="onError">
+            <b-icon icon="content-copy" size="is-small"></b-icon>
             <span>Copy</span>
           </b-button>
-        </div>
-        <div class="level-item">
           <b-button class="is-danger"
                     @click="removeSecretPair(indexKey)">
             <b-icon icon="delete" size="is-small"></b-icon>

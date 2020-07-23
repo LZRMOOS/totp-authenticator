@@ -51,6 +51,9 @@ const isComplete = function () {
 // MOUNTED
 // ================
 const mounted = function () {
+  const input = document.getElementById('secret');
+  input.focus()
+
   if (localStorage.getItem('secretPairs')) {
     try {
       this.secretPairs = JSON.parse(localStorage.getItem('secretPairs'))
